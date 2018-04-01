@@ -1,0 +1,10 @@
+Id=TG1000;
+	Name=Daredevil;
+	Flying=20;
+}
+Id=TG1001;
+	Name=Alcoholic;
+	Instinct=-10;
+	Fit_Flabby=-20;
+	Selfish_Generous=-20;
+}

@@ -10,18 +10,24 @@ namespace RingGeneral
     static partial class DataControl
     {
         // Takes a string and breaks it down into dictionaries, which are then used to create dictionaries of GameObjects (characters, tags, etc).
-        public static void Deserialize(string data, out Dictionary<string, Character> characters, out Dictionary<string, Tag> tags)
+        public static Dictionary<string, T> Deserialize<T>(string data)
+            where T : GameObject
         {
-            // Remove break characters from the raw data. Split it into sub-lists.
-            data = Regex.Replace(data, @"\t|\n|\r", string.Empty);
-            List<string> split = SplitData(data, '{');
+            Dictionary<string, T> output = new Dictionary<string, T>();
 
-            List<string> characterList = SplitData(split[0], '}');
-            List<string> tagList = SplitData(split[1], '}');
+            // Remove break characters from the raw data. Split it into sub-lists.
+            data = CleanData(data);
+
+            List<string> dataList = SplitData(data, '}');
 
             // Assemble object dictionaries.
-            characters = CreateObjectDict<Character>(characterList);
-            tags = CreateObjectDict<Tag>(tagList);
+            return CreateObjectDict<T>(dataList);
+        }
+
+        // Removes break characters from strings.
+        public static string CleanData(string data)
+        {
+            return Regex.Replace(data, @"\t|\n|\r", string.Empty);
         }
 
         // Splits data string, removes blank entries, and returns a list.

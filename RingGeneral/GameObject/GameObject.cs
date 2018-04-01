@@ -9,8 +9,6 @@ namespace RingGeneral
     abstract class GameObject
     {
         public string Id { get; set; }
-
-        public abstract string Export();
     }
 
 
